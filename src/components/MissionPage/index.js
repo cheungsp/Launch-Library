@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { getMissions } from '../../utilities/requests';
 import axios from 'axios';
 import './style.css';
+import Mission from '../Mission/index'
 
 
 
@@ -10,74 +11,101 @@ class MissionPage extends Component {
     super(props);
 
     this.state = {
-      items: ['one', 'two']
+      items: []
     };
 
 
   }
-  componentWillMount () {
-    const ROOT_URL = `http://localhost:8000/missions`
-
+  componentDidMount () {
+    // const ROOT_URL = `http://localhost:8000/missions`
+    const ROOT_URL = `https://launch-api-backend.herokuapp.com/missions`
     axios.get(ROOT_URL)
       .then(function (response) {
         let results = response.request.responseText
-        // console.log(results);
         let readresults = JSON.parse(results);
-        // console.log(readresults)
-        console.log(readresults['data'])
         let data = readresults['data']
-        let data1 = data[0]
-        console.log('data1: ');
-        console.log(data1);
-        let rocket1 = data1['rocket']
-        console.log('rocket1: ');
-        console.log(rocket1);
-        let rocketname = rocket1['name']
-        console.log(rocketname);
-        let rocketwiki = rocket1['wikiURL']
-        console.log(rocketwiki);
-
-        // launch info
 
 
+        for(let i = 0; i < data.length; i++) {
+          let mission = []
+          let data1 = data[i]
+          let rocket1 = data1['rocket']
+          if(rocket1['name']!= null){
+            let rocketname = rocket1['name']
+            mission.push(rocketname)
+          }
+          else {
+            mission.push('Rocket Name not found')
+          }
 
-      //   for(let i = 0; i < data.length; i++) {
-      //     this.setState({
-      //       // items: [...this.state.items, data[i]]
-      //       items: [...this.state.items, i]
-      //     })
-      //   }
-      // }.bind(this))
-    })
+          if(rocket1['wikiURL']!= null){
+            let rocketwiki = rocket1['wikiURL']
+            mission.push(rocketwiki)
+          }
+          else {
+            mission.push('Rocket Wikipedia not found')
+          }
+          let launch = data1['location']
+
+          if (launch['pads'][0]['name'] != null) {
+            let launch_location = launch['pads'][0]['name']
+            mission.push(launch_location)
+          }
+          else {
+            mission.push('Launch Location not found')
+          }
+
+          if (launch['name'] != null) {
+            let launch_agency = launch['name']
+            mission.push(launch_agency)
+          }
+          else {
+            mission.push('Launch Agency not found')
+          }
+
+          if (data1['net']!= null) {
+            let mission_time = data1['net']
+            mission.push(mission_time)
+          }
+          else {
+            mission.push('Launch Date not-found')
+          }
+
+          if (data1['name']!= null) {
+            let mission_name = data1['name']
+            mission.push(mission_name)
+          }
+          else {
+            mission.push('Mission Name not found')
+          }
+
+          if (launch['pads'][0]['agencies'].length > 0) {
+            let launch_agency_wiki = launch['pads'][0]['agencies'][0]['wikiURL']
+            mission.push(launch_agency_wiki)
+          }
+          else {
+            mission.push('https://en.wikipedia.org/wiki/List_of_government_space_agencies')
+          }
+
+          this.setState({
+            items: [...this.state.items, mission]
+          })
+        }
+      }.bind(this))
       .catch(function (error) {
         console.log(error);
       });
-
     };
 
-    // componentDidMount: function() {
-    //     this.serverRequest = $.get(this.props.source, function (result) {
-    //       var lastGist = result[0];
-    //       this.setState({
-    //         username: lastGist.owner.login,
-    //         lastGistUrl: lastGist.html_url
-    //       });
-    //     }.bind(this));
-    //   }
-
-    componentDidMount () {
-      console.log(this.state.items);
-    }
 
 
   render() {
-      return(
-          <div>
-              <div>Items:
-                {this.state.items}
-              </div>
-          </div>
-      );
+    return (
+      <div className="container">
+        <h2>Upcoming Launches:</h2>
+        {this.state.items.map(itemData => <Mission key={this.state.items.indexOf(itemData)} missions={itemData} />)}
+      </div>
+    );
   }
 }
 
