@@ -35,7 +35,7 @@ class MissionPage extends Component {
             mission.push('Rocket Name not found')
           }
 
-          if(rocket1['wikiURL']!= null){
+          if(rocket1['wikiURL']){
             let rocketwiki = rocket1['wikiURL']
             mission.push(rocketwiki)
           }
@@ -44,7 +44,7 @@ class MissionPage extends Component {
           }
           let launch = data1['location']
 
-          if (launch['pads'][0]['name'] != null) {
+          if (launch['pads'][0]['name']) {
             let launch_location = launch['pads'][0]['name']
             mission.push(launch_location)
           }
@@ -52,7 +52,7 @@ class MissionPage extends Component {
             mission.push('Launch Location not found')
           }
 
-          if (launch['name'] != null) {
+          if (launch['name']) {
             let launch_agency = launch['name']
             mission.push(launch_agency)
           }
@@ -60,7 +60,7 @@ class MissionPage extends Component {
             mission.push('Launch Agency not found')
           }
 
-          if (data1['net']!= null) {
+          if (data1['net']) {
             let mission_time = data1['net']
             mission.push(mission_time)
           }
@@ -68,7 +68,7 @@ class MissionPage extends Component {
             mission.push('Launch Date not-found')
           }
 
-          if (data1['name']!= null) {
+          if (data1['name']) {
             let mission_name = data1['name']
             mission.push(mission_name)
           }
