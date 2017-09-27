@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { getMissions } from '../../utilities/requests';
 import axios from 'axios';
 import './style.css';
 import Mission from '../Mission/index'
@@ -9,11 +8,9 @@ import Mission from '../Mission/index'
 class MissionPage extends Component {
   constructor (props) {
     super(props);
-
     this.state = {
       items: []
     };
-
 
   }
   componentDidMount () {

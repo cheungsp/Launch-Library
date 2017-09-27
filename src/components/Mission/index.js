@@ -3,11 +3,6 @@ import './style.css';
 
 class Mission extends Component {
 
-  // componentWillMount() {
-  //     // this.props.fetchItems();
-  //     console.log(this.props['missions']);
-  //   }
-
   render() {
     return (
       <div>
