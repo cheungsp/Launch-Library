@@ -98,8 +98,8 @@ class MissionPage extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h2>Upcoming Launches:</h2>
+      <div className={['mission-container', 'container'].join(' ')}>
+        <h1 className="text-center">Upcoming Launches</h1>
         {this.state.items.map(itemData => <Mission key={this.state.items.indexOf(itemData)} missions={itemData} />)}
       </div>
     );

@@ -5,7 +5,7 @@ class Mission extends Component {
 
   render() {
     return (
-      <div>
+      <div className="missions">
         <div className="mission-name">
           <h4>{this.props['missions'][5]}</h4>
         </div>
@@ -15,7 +15,7 @@ class Mission extends Component {
         <h4>Launching From: {this.props['missions'][3]}</h4>
         <h4>Launch Agency: {this.props['missions'][2]}</h4>
         <h4><a href={this.props['missions'][6]}>Launch Agency's Wikipedia</a></h4>
-        <hr className='line'/>
+        <hr />
       </div>
     )
   }
